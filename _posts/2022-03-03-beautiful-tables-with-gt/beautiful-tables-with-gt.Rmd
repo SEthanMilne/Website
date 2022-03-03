@@ -36,9 +36,7 @@ library(lubridate)
 ```
 
 # Load Data
-The data I'll be loading has already been cleaned. I've also added some variables related to donor anonymity, and classifications of the content of their comments.
-
-The data details donations from two related campaigns: Freedom Convoy 2022, and Adopt-a-Trucker.
+The data I'll be loading has already been cleaned. I've also added some variables related to donor anonymity, and classifications of the content of their comments. The data details donations from two related campaigns: Freedom Convoy 2022, and Adopt-a-Trucker.
 
 ```{r}
 GSG_data <- here::here("_posts",
@@ -98,11 +96,11 @@ donations_table <- donations_table |>
     columns = c(`Avg Donations`, 
                 `Largest Donation`, 
                 `Total Donations`),
-    decimals = 0
+    decimals = 0 #Round to nearest $1
   ) |>
   fmt_number(
     columns = c(`Total Donors`),
-    decimals = 0
+    decimals = 0 #Remove decimals
   )
 
 donations_table
@@ -153,17 +151,17 @@ donations_table <- donations_table |>
   grand_summary_rows(
     columns = c(`Total Donors`),
     fns = c(
-      Total = ~sum(.)
+      Total = ~sum(.) #applies sum func to column
     ),
     decimals = 0
   ) |>
   grand_summary_rows(
     columns = c(`Total Donations`),
     fns = c(
-      Total = ~sum(.)
+      Total = ~sum(.) #applies sum func to column
     ),
     formatter = fmt_currency,
-    decimals = 0
+    decimals = 0 #rounds to nearest $1
   )
 
 donations_table
@@ -173,29 +171,17 @@ donations_table
 Now we can get started on a header. For this, I'll be including some extra information about when the most recent and earliest donations were. I'll also make the campaign groups pop more by bolding them.
 
 ```{r}
-oldest_donation <- GSG_data$relative_date |>
-    min()
+oldest_donation <- min(GSG_data$relative_date)
 
-youngest_donation <- GSG_data$relative_date |>
-    max()
+youngest_donation <- max(GSG_data$relative_date)
 
 time_interval <- paste(
     month(oldest_donation, label = TRUE, abbr = FALSE),
-    " ",
-    day(oldest_donation),
-    "th ",
-    hour(oldest_donation),
-    ":",
-    minute(oldest_donation),
-    " — ",
+    " ", day(oldest_donation),"th ",hour(oldest_donation),
+    ":", minute(oldest_donation), " — ",
     month(youngest_donation, label = TRUE, abbr = FALSE),
-    " ",
-    day(youngest_donation),
-    "th ",
-    hour(youngest_donation),
-    ":",
-    minute(youngest_donation),
-    sep = ""
+    " ",day(youngest_donation),"th ", hour(youngest_donation),
+    ":",minute(youngest_donation),sep = ""
 )
 
 donations_table <- donations_table |>
