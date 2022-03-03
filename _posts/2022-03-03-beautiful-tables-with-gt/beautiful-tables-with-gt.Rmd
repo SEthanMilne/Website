@@ -36,7 +36,7 @@ library(lubridate)
 ```
 
 # Load Data
-The data I'll be loading has already been cleaned. I've also added some variables related to donor anonymity, and classifications of the content of their comments. The data details donations from two related campaigns: Freedom Convoy 2022, and Adopt-a-Trucker.
+The data I'll be loading has already been cleaned. I've also added some variables related to donor anonymity, and classifications of the content of their comments.
 
 ```{r}
 path <- here::here("_posts", "2022-03-03-beautiful-tables-with-gt", "cleanGSG.csv")
