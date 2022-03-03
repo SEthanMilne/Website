@@ -9,6 +9,14 @@
     <generator>Distill</generator>
     <lastBuildDate>Thu, 03 Mar 2022 00:00:00 +0000</lastBuildDate>
     <item>
+      <title>How I make tables</title>
+      <dc:creator>Ethan Milne</dc:creator>
+      <link>https://approachingsignificance.com/posts/2022-03-03-beautiful-tables-with-gt</link>
+      <description>Using R's Grammar of Tables (gt) package to summarize data on the 2022 Freedom Convoy</description>
+      <guid>https://approachingsignificance.com/posts/2022-03-03-beautiful-tables-with-gt</guid>
+      <pubDate>Thu, 03 Mar 2022 00:00:00 +0000</pubDate>
+    </item>
+    <item>
       <title>JCR P-Values</title>
       <dc:creator>Ethan Milne</dc:creator>
       <link>https://approachingsignificance.com/posts/2022-03-03-jcr-p-values</link>
@@ -16,14 +24,6 @@
       <guid>https://approachingsignificance.com/posts/2022-03-03-jcr-p-values</guid>
       <pubDate>Thu, 03 Mar 2022 00:00:00 +0000</pubDate>
       <media:content url="https://approachingsignificance.com/posts/2022-03-03-jcr-p-values/jcr-p-values_files/figure-html5/unnamed-chunk-4-1.png" medium="image" type="image/png" width="1248" height="768"/>
-    </item>
-    <item>
-      <title>How I make tables</title>
-      <dc:creator>Ethan Milne</dc:creator>
-      <link>https://approachingsignificance.com/posts/2022-03-03-beautiful-tables-with-gt</link>
-      <description>Using R's Grammar of Tables (gt) package to summarize data on the 2022 Freedom Convoy</description>
-      <guid>https://approachingsignificance.com/posts/2022-03-03-beautiful-tables-with-gt</guid>
-      <pubDate>Thu, 03 Mar 2022 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Welcome!</title>
