@@ -2,8 +2,8 @@ name: "Distill"
 title: "Ethan Milne"
 description: |
   Ethan Milne's personal site & research blog. Posts primarily about: research methods, consumer behavior, and R
-base_url: https://taemobang.com/
-repository_url: https://github.com/be-favorite/Distill
+base_url: https://approachingsignificance.com/
+repository_url: https://github.com/SEthanMilne/Website
 output_dir: "_site"
 theme: theme.css
 navbar:
