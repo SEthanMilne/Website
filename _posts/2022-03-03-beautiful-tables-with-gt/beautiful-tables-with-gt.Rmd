@@ -18,7 +18,7 @@ output:
 
 I've been exploring options for generating tables in R, and have landed on the `gt` package. This package is to tables as `ggplot` is to plots -- table creation is done in a reproducible manner with a syntax that should be fairly intuitive for any regular `ggplot` user.
 
-This post using the `gt` package to explore data related to the 2022 Freedom Convoy. For those unaware, in early 2022 a group of Canadian truckers started forming a convoy to protest vaccine, mask, and other covid-related mandates. They parked outside the Canadian parliament in Ottawa, and honked their horns for weeks.
+This post uses the `gt` package to explore data related to the 2022 Freedom Convoy. For those unaware, in early 2022 a group of Canadian truckers started forming a convoy to protest vaccine, mask, and other covid-related mandates. They parked outside the Canadian parliament in Ottawa, and honked their horns for weeks.
 
 These truckers were funded by charitable donations. Initially, these funds (all $10 million!) were funneled through GoFundMe, but the [site has since frozen the campaign](https://www.theglobeandmail.com/canada/article-gofundme-scuttles-campaign-for-trucker-convoy-stops-release-of-10/) and told donors to request refunds.
 
