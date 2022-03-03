@@ -109,22 +109,23 @@ Finally, p values aren't exactly linear in their distribution, so everything is 
 ```{r warning = FALSE, message = FALSE}
 library(ggthemes)
 library(ggtext)
+library(ggpubr)
 
 ggplot(Cleaned_Results, aes(x = Raw_Value)) +
-  geom_histogram(bins = 50) +
+  geom_histogram(bins = 50, fill = "black") +
   scale_x_log10(breaks = c(0.0001, 0.001, 0.01, 0.05, 0.1, 1),
                 labels = c(".0001", ".001", ".01", ".05", ".1", "1")) +
-  theme_fivethirtyeight() +
+  theme_pubclean() +
   theme(
     axis.title.x = element_text(),
     axis.title.y = element_text(),
-    plot.title = element_markdown()
+    plot.title = element_markdown(),
+    plot.background = element_rect(colour = "black", fill=NA, size=2)
   ) +
   labs(
     title = "<span style = 'color: #ed713a;'>Distribution of P Values</span>",
     subtitle = "Appearing in JCR, 2019-2020 editions",
     x = "P Values",
-    y = "Count",
-    caption = "Source: @SEthanMilne \n Ivey Business School"
+    y = "Count"
   )
 ```
