@@ -1,0 +1,25 @@
+name: "Distill"
+title: "Ethan Milne"
+description: |
+  Ethan Milne's personal site & research blog. Posts primarily about: research methods, consumer behavior, and R
+base_url: https://taemobang.com/
+repository_url: https://github.com/be-favorite/Distill
+output_dir: "_site"
+theme: theme.css
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "Blog"
+      href: blog.html
+collections:
+  posts:
+    share: [twitter, linkedin, facebook]
+google_analytics: "UA-145015693-1"
+twitter:
+  site: "@SEthanMilne"
+  creator: "@SEthanMilne"
+output:
+  distill::distill_article:
+    includes:
+      in_header: giscus.html

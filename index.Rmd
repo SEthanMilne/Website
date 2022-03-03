@@ -1,0 +1,29 @@
+---
+title: "Ethan Milne"
+image: "Profile.jpg"
+links:
+  - label: '<i class="fab fa-github"></i> GitHub'
+    url: "https://github.com/SEthanMilne"
+  - label: '<i class="fab fa-linkedin"></i> Linkedin'
+    url: "www.linkedin.com/in/ethan-milne"
+  - label: '<i class="fab fa-twitter"></i> Twitter'
+    url: "https://twitter.com/SEthanMilne"
+output: postcards::trestles
+site: distill::distill_website
+---
+# **Welcome to my site!**
+
+***
+
+## **Education**
+Current PhD Student, Marketing, Ivey Business School (Western University)
+
+Honors Business Administration, Ivey Business School (Western University)
+
+## **About Me**
+
+Hi, I'm a Marketing PhD student doing consumer behavior research at Western University's Ivey Business School.
+
+[insert more]
+
+
