@@ -39,10 +39,9 @@ library(lubridate)
 The data I'll be loading has already been cleaned. I've also added some variables related to donor anonymity, and classifications of the content of their comments. The data details donations from two related campaigns: Freedom Convoy 2022, and Adopt-a-Trucker.
 
 ```{r}
-GSG_data <- here::here("_posts",
-                       "2022-03-03-beautiful-tables-with-gt",
-                       "cleanGSG.csv") |>
-    read_csv()
+path <- here::here("_posts", "2022-03-03-beautiful-tables-with-gt", "cleanGSG.csv")
+    
+GSG_data <- read_csv(path)
 ```
 # Table Creation
 The table I'll be making will show the breakdown of donations by the anonymity of donors, and the specific campaign they donated to.
