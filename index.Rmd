@@ -20,9 +20,9 @@ site: distill::distill_website
 
 
 ## **Education**
-Current PhD Student, Marketing, Ivey Business School (Western University)
+* PhD Student, Marketing, Ivey Business School
 
-Honors Business Administration, Ivey Business School (Western University)
+* Honors Business Administration, Ivey Business School
 
 ## **About Me**
 
