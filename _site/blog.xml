@@ -7,7 +7,16 @@
     <description>Ethan Milne's personal site &amp; research blog. Posts primarily about: research methods, consumer behavior, and R
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 02 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 03 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>JCR P-Values</title>
+      <dc:creator>Ethan Milne</dc:creator>
+      <link>https://approachingsignificance.com/posts/2022-03-03-jcr-p-values</link>
+      <description>A short exercise in extracting p values from academic papers.</description>
+      <guid>https://approachingsignificance.com/posts/2022-03-03-jcr-p-values</guid>
+      <pubDate>Thu, 03 Mar 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://approachingsignificance.com/posts/2022-03-03-jcr-p-values/jcr-p-values_files/figure-html5/unnamed-chunk-4-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>Welcome!</title>
       <dc:creator>Ethan Milne</dc:creator>
