@@ -1,0 +1,213 @@
+---
+title: "How I make tables"
+description: |
+  Using R's Grammar of Tables (gt) package to summarize data on the 2022 Freedom Convoy
+author:
+  - name: Ethan Milne
+    url: https://approachingsignificance.com
+date: 2022-03-03
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+#knitr::opts_chunk$set(echo = FALSE)
+```
+
+I've been exploring options for generating tables in R, and have landed on the `gt` package. This package is to tables as `ggplot` is to plots -- table creation is done in a reproducible manner with a syntax that should be fairly intuitive for any regular `ggplot` user.
+
+This post using the `gt` package to explore data related to the 2022 Freedom Convoy. For those unaware, in early 2022 a group of Canadian truckers started forming a convoy to protest vaccine, mask, and other covid-related mandates. They parked outside the Canadian parliament in Ottawa, and honked their horns for weeks.
+
+These truckers were funded by charitable donations. Initially, these funds (all $10 million!) were funneled through GoFundMe, but the [site has since frozen the campaign](https://www.theglobeandmail.com/canada/article-gofundme-scuttles-campaign-for-trucker-convoy-stops-release-of-10/) and told donors to request refunds.
+
+Convoy supported then moved to a sketchier, less secure website called GiveSendGo. In just over 24 hours, they raised nearly $9 million -- almost matching the total donations sent to GoFundMe. [The site was then hacked](https://nationalpost.com/news/civil-servants-nasa-employees-and-an-american-billionaire-among-donors-leaked-in-givesendgo-hack), and personal data on all donors were leaked to academics and journalists.
+
+I recently got access to this data for a research project, and will be documenting my general process for summarizing and presenting the data in this post.
+
+
+# Required Packages
+```{r message = FALSE, warning = FALSE}
+library(tidyverse)
+library(readr)
+library(gt)
+library(lubridate)
+```
+
+# Load Data
+The data I'll be loading has already been cleaned. I've also added some variables related to donor anonymity, and classifications of the content of their comments.
+
+The data details donations from two related campaigns: Freedom Convoy 2022, and Adopt-a-Trucker.
+```{r}
+GSG_data <- here::here("_posts",                "2022-03-03-beautiful-tables-with-gt",
+                       "cleanGSG.csv") |>
+    read_csv()
+```
+# Table Creation
+The table I'll be making will show the breakdown of donations by the anonymity of donors, and the specific campaign they donated to.
+
+## Summarize Data
+```{r}
+## First, make the anonymous column a factor
+GSG_data <- GSG_data |>
+  mutate(donation_anonymous = as.factor(donation_anonymous),
+         donation_anonymous = fct_relevel(donation_anonymous, c(
+  "Fully Public",
+  "First Name Public",
+  "Last Name Public",
+  "Pseudonymous",
+  "Anonymous"
+)))
+
+## Then, use group_by and summarise
+donations_table <- GSG_data |>
+  group_by(campaign, donation_anonymous) |>
+  summarise(
+    `Total Donations` = sum(donation_amount),
+    `Avg Donations` = mean(donation_amount),
+    `Total Donors` = n(),
+    `Largest Donation` = max(donation_amount)
+  ) |>
+  rename(
+    Campaign = campaign,
+    Name = donation_anonymous
+  )
+
+donations_table
+```
+
+Now we have a big, ugly dataframe to work with. From here, we can start using the `gt` package to pretty this up.
+
+## Create a gt object
+```{r}
+donations_table <- gt(donations_table)
+donations_table
+```
+
+This is already looking worlds better -- we have some nice dividing lines, and the donations are grouped by campaign. Next is making the numbers look better.
+
+## Format values
+Thankfully, the `gt` package gives us some good tools for formatting values. We don't need to see that there were 100.00000 donors when we could just say 100, and currency values need to be turned into dollar amounts.
+
+```{r}
+donations_table <- donations_table |>
+  fmt_currency(
+    columns = c(`Avg Donations`, 
+                `Largest Donation`, 
+                `Total Donations`),
+    decimals = 0
+  ) |>
+  fmt_number(
+    columns = c(`Total Donors`),
+    decimals = 0
+  )
+
+donations_table
+```
+
+## Footnotes
+Because we rounded currency values, and its ambiguous which currency the dollar amounts are in, we need to make a note of it. For this, we'll use `gt`'s `tab_footnote()` function, specifying the location of the footnotes.
+
+```{r}
+donations_table <- donations_table |>
+    tab_footnote(
+        footnote = md("*All currency values (USD) rounded to the nearest dollar*"),
+        locations = cells_column_labels(
+            columns = c(`Avg Donations`,
+                        `Largest Donation`,
+                        `Total Donations`)
+        )
+    ) 
+
+donations_table
+```
+
+## Align columns
+Next, let's align our columns. The value columns will be centered, and the anonymity categories will be right-justified.
+
+```{r}
+donations_table <- donations_table |>
+    cols_align(
+        align = "center",
+        columns = c(
+            `Avg Donations`,
+            `Largest Donation`,
+            `Total Donations`,
+            `Total Donors`
+        )
+    ) |>
+    cols_align(align = "right",
+               columns = Name)
+
+donations_table
+```
+
+## Grand summary rows
+Now that our columns are nicely formatted, we can make a grand summary row. We'll want to see what the total number of donations and donors are.
+
+```{r}
+donations_table <- donations_table |>
+  grand_summary_rows(
+    columns = c(`Total Donors`),
+    fns = c(
+      Total = ~sum(.)
+    ),
+    decimals = 0
+  ) |>
+  grand_summary_rows(
+    columns = c(`Total Donations`),
+    fns = c(
+      Total = ~sum(.)
+    ),
+    formatter = fmt_currency,
+    decimals = 0
+  )
+
+donations_table
+```
+
+## Header
+Now we can get started on a header. For this, I'll be including some extra information about when the most recent and earliest donations were. I'll also make the campaign groups pop more by bolding them.
+
+```{r}
+oldest_donation <- GSG_data$relative_date |>
+    min()
+
+youngest_donation <- GSG_data$relative_date |>
+    max()
+
+time_interval <- paste(
+    month(oldest_donation, label = TRUE, abbr = FALSE),
+    " ",
+    day(oldest_donation),
+    "th ",
+    hour(oldest_donation),
+    ":",
+    minute(oldest_donation),
+    " — ",
+    month(youngest_donation, label = TRUE, abbr = FALSE),
+    " ",
+    day(youngest_donation),
+    "th ",
+    hour(youngest_donation),
+    ":",
+    minute(youngest_donation),
+    sep = ""
+)
+
+donations_table <- donations_table |>
+  tab_header(
+    title = md("**GiveSendGo Convoy Donations**"),
+    subtitle = time_interval 
+  ) |>
+    tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_row_groups()
+  )
+
+donations_table
+```
+
+# Conclusion
+And with that, we have a beautiful, reproducible table done entirely in R. 
