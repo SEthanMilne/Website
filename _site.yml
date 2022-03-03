@@ -12,14 +12,13 @@ navbar:
       href: index.html
     - text: "Blog"
       href: blog.html
+    - text: "CV"
+      href: cv.pdf
 collections:
   posts:
     share: [twitter, linkedin, facebook]
-google_analytics: "UA-145015693-1"
 twitter:
   site: "@SEthanMilne"
   creator: "@SEthanMilne"
 output:
-  distill::distill_article:
-    includes:
-      in_header: giscus.html
+  distill::distill_article

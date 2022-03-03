@@ -6,14 +6,18 @@ links:
     url: "https://github.com/SEthanMilne"
   - label: '<i class="fab fa-linkedin"></i> Linkedin'
     url: "www.linkedin.com/in/ethan-milne"
-  - label: '<i class="fab fa-twitter"></i> Twitter'
+  - label: '`r fontawesome::fa("twitter")` Twitter'
     url: "https://twitter.com/SEthanMilne"
+  - label: '`r fontawesome::fa("tiktok")` TikTok'
+    url: "https://www.tiktok.com/\\@TallPsychology"
 output: postcards::trestles
 site: distill::distill_website
 ---
-# **Welcome to my site!**
+# **Approaching Significance**
+*And trending towards an academic job*
 
 ***
+
 
 ## **Education**
 Current PhD Student, Marketing, Ivey Business School (Western University)
@@ -22,8 +26,8 @@ Honors Business Administration, Ivey Business School (Western University)
 
 ## **About Me**
 
-Hi, I'm a Marketing PhD student doing consumer behavior research at Western University's Ivey Business School.
+Hi, I'm a Marketing PhD student doing consumer behavior research at Western University's Ivey Business School. I'm interesting in prosocial behavior, antisocial behavior, and the intersection of the two -- when do we do good things for bad reasons, and bad things for good reasons?
 
-[insert more]
+
 
 
