@@ -192,9 +192,12 @@ donations_table <- donations_table |>
     style = cell_text(weight = "bold"),
     locations = cells_row_groups()
   )
-
-donations_table
 ```
+
+```{r echo = F}
+gt::gtsave(donations_table, file = here::here("_posts", "2022-03-03-beautiful-tables-with-gt", "final_table.png"))
+```
+
 
 # Conclusion
 And with that, we have a beautiful, reproducible table done entirely in R. 
