@@ -142,3 +142,7 @@ Sound good? Let's get going."
 haikuify(text)
 ```
 
+The use-case for `Haikuify` is clear: whimsical exploration of otherwise serious text data. As an example, I undertook a small project a couple years back using this package to find accidental haikus in 10-k reports from major tech firms. Here's a haiku sourced from Microsoft's 2018 report (with a background chart of their stock movement)
+
+![Microsoft Haiku](microsoft_haiku.png)
+
