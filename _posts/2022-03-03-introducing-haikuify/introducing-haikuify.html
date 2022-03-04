@@ -1609,14 +1609,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>Haikuify</span><span class='op'>)</span>
 
 
-<span class='va'>text</span> <span class='op'>&lt;-</span> <span class='st'>"I've been wondering for a while now how we might start this project. 
-We need to make sure that the tools are all in place to get started soon. 
-Sound good? Let's get going."</span>
+<span class='va'>text</span> <span class='op'>&lt;-</span> <span class='st'>"I've been wondering for a while now how we might start this project. We need to make sure that the tools are all in place to get started soon. Sound good? Let's get going."</span>
 
 <span class='fu'>haikuify</span><span class='op'>(</span><span class='va'>text</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>character(0)</code></pre>
+<pre><code>[1] &quot;We Need To Make Sure / That The Tools Are All In Place / To Get Started Soon&quot;</code></pre>
 </div>
 <p>The use-case for <code>Haikuify</code> is clear: whimsical exploration of otherwise serious text data. As an example, I undertook a small project a couple years back using this package to find accidental haikus in 10-k reports from major tech firms. Here’s a haiku sourced from Microsoft’s 2018 report (with a background chart of their stock movement)</p>
 <figure>
