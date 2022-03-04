@@ -1,0 +1,144 @@
+---
+title: "Introducing Haikuify"
+description: |
+  A new package for R to make text wrangling Quirky and Cool
+author:
+  - name: Ethan Milne
+    url: https://approachingsignificance.com
+date: 2022-03-04
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+# Introduction
+I made an R package. Not a good one, but a package nonetheless. It's called `Haikuify`, and can be accessed at [this GitHub repo](https://github.com/SEthanMilne/Haikuify).
+
+This package does exactly what the name suggests -- it takes text and.... haikuifies it. That is, the package takes strings and identifies when there are haikus present. 
+
+Haikus are well-suited for text analysis because they do not have any requirements for rhyming, which can be difficult to determine with basic text analysis tools. Instead, Haikus have only one rule: *The poem must follow a 5-7-5 syllable structure*. Counting syllables is easy with modern packages like `Quanteda` or `nsyllable`, so it is pretty easy to determine whether a sentence meets the criteria of a haiku.
+
+# Package mechanics
+The `Haikuify` package contains a single function, reproduced below:
+
+```{r eval = FALSE}
+haikuify <- function (x) {
+    x |>
+        strsplit("(?<=[[:punct:]])\\s(?=[A-Z])", perl = T) |>
+        unlist() |>
+        data.frame() |>
+        rename("Sentences" = 1) |>
+        mutate(
+            Sentences = gsub("[[:punct:]]", "", Sentences),
+            Sentences = tolower(Sentences),
+            Sentence_ID = row_number()
+        ) |>
+        tidytext::unnest_tokens(word, Sentences) |>
+        mutate(
+            syllables = nsyllable::nsyllable(word) |>
+                as.numeric()
+        ) |>
+        group_by(Sentence_ID) |>
+        mutate(sentence_syllables = sum(syllables)) |>
+        filter(sentence_syllables == 17) |>
+        mutate(syllable_count = cumsum(syllables)) |>
+        filter(any(syllable_count == 5)) |>
+        filter(any(syllable_count == 12)) |>
+        filter(any(syllable_count == 17)) |>
+        mutate(
+            word = ifelse(syllable_count == 5, 
+                          paste(word, "/", sep = " "),
+                          word),
+            word = ifelse(syllable_count == 12, 
+                          paste(word, "/", sep = " "),
+                          word)
+        ) |>
+        summarise(text = stringr::str_c(word, collapse = " ")) |>
+        mutate(text = stringr::str_to_title(text)) |>
+        dplyr::pull(text)
+}
+```
+
+Let's break this down piece by piece. First, we need to split a given text string into its component sentences. The following chunk takes a string (x) and splits it whenever it finds punctuation. These split strings are output as a list, which is then unlisted and turned into a dataframe. Then, the dataframe is given sensible column names (e.g. "sentences"), and the punctuation is stripped from the string. Finally, all words are turned into lowercase using the tolower() function.
+
+```{r eval = F}
+x |>
+    strsplit("(?<=[[:punct:]])\\s(?=[A-Z])", perl = T) |>
+        unlist() |>
+        data.frame() |>
+        rename("Sentences" = ".") |>
+        mutate(
+            Sentences = gsub("[[:punct:]]", "", Sentences),
+            Sentences = tolower(Sentences),
+            Sentence_ID = row_number()
+        )
+```
+
+Next, we need to figure out the number of syllables contained in each word, in each sentence. The following chunk "unnests" the words in each sentence, splitting by the spaces in the sentence and giving each word its own row in a new dataframe. Then, the `quanteda` function nsyllable() is applied to each individual word in its row to come up with a syllable value per word.
+
+```{r eval  = F}
+tidytext::unnest_tokens(word, Sentences) |>
+    mutate(
+        syllables = quanteda::nsyllable(word, 
+                                        syllable_dictionary = quanteda::data_int_syllables) |>
+            as.numeric()
+    )
+```
+
+Now that syllables have been determined, we can identify if a sentence meets basic criteria for a haiku. The first check is whether a sentence has 17 total syllables (the sum of 5 + 7 + 5):
+
+```{r eval = F}
+group_by(Sentence_ID) |>
+        mutate(sentence_syllables = sum(syllables)) |>
+        filter(sentence_syllables == 17)
+```
+
+But not every sentence that has 17 syllables is truly a haiku. Consider the following sentence:
+
+> "Antidisestablishmentarianism is a cool word eh?"
+
+While this sentence *does* have 17 syllables, the word "antidisestablishmentarianism" cannot be split across multiple lines. The solution, then, is to cumulatively sum the syllables in a given sentence, and identify when a sentence reaches a syllable count of 5, 12 (5+7), and 17 (5+7+5) respectively:
+
+```{r eval = F}
+mutate(syllable_count = cumsum(syllables)) |>
+        filter(any(syllable_count == 5)) |>
+        filter(any(syllable_count == 12)) |>
+        filter(any(syllable_count == 17))
+```
+
+Now we need to identify the line breaks for a haiku. With our list of true haikus, we can easily append "/" to the end of the 5 and 12-syllable words to signify line breaks:
+
+```{r eval = F}
+mutate(word = ifelse(syllable_count == 5, 
+                     paste(word, "/", sep = " "), 
+                     word),
+            word = ifelse(syllable_count == 12, 
+                          paste(word, "/", sep = " "), 
+                          word)
+        )
+```
+
+Finally, we can pull everything together and output a full haiku, complete with line breaks and all:
+
+```{r eval = F}
+summarise(text = stringr::str_c(word, collapse = " ")) |>
+        mutate(text = stringr::str_to_title(text)) |>
+        dplyr::pull(text)
+```
+
+# Implementation
+
+Now to install the package and give it a live test:
+
+```{r message = F, warning = F}
+devtools::install_github("SEthanMilne/Haikuify")
+library(Haikuify)
+
+
+text <- "I've been wondering for a while now how we might start this project. 
+We need to make sure that the tools are all in place to get started soon. 
+Sound good? Let's get going."
+
+haikuify(text)
+```
+

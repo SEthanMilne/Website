@@ -7,7 +7,15 @@
     <description>Ethan Milne's personal site &amp; research blog. Posts primarily about: research methods, consumer behavior, and R
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 03 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 04 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Introducing Haikuify</title>
+      <dc:creator>Ethan Milne</dc:creator>
+      <link>https://approachingsignificance.com/posts/2022-03-03-introducing-haikuify</link>
+      <description>A new package for R to make text wrangling Quirky and Cool</description>
+      <guid>https://approachingsignificance.com/posts/2022-03-03-introducing-haikuify</guid>
+      <pubDate>Fri, 04 Mar 2022 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>How I make tables</title>
       <dc:creator>Ethan Milne</dc:creator>
