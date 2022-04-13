@@ -7,7 +7,16 @@
     <description>Ethan Milne's personal site &amp; research blog. Posts primarily about: research methods, consumer behavior, and R
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 04 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 13 Apr 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Scraping Wikipedia Tables: A Brief Tutorial</title>
+      <dc:creator>Ethan Milne</dc:creator>
+      <link>https://approachingsignificance.com/posts/2022-04-13-scraping-wikipedia-pages-a-brief-tutorial</link>
+      <description>A short description of the post.</description>
+      <guid>https://approachingsignificance.com/posts/2022-04-13-scraping-wikipedia-pages-a-brief-tutorial</guid>
+      <pubDate>Wed, 13 Apr 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://approachingsignificance.com/posts/2022-04-13-scraping-wikipedia-pages-a-brief-tutorial/wikipedia.png" medium="image" type="image/png" width="2244" height="2048"/>
+    </item>
     <item>
       <title>Introducing Haikuify</title>
       <dc:creator>Ethan Milne</dc:creator>
