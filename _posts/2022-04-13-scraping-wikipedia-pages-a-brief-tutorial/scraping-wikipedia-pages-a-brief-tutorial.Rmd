@@ -35,7 +35,7 @@ Suppose I'm interesting in scraping information on viewership of The Big Bang Th
 
 ## The Code
 
-Scraping tables takes a single line of code. The `htmltab()` function uses two inputs: a link to the webpage, and a number marking which table you want to scrape. In this case, I want to get table #1, which is a summary of the Big Bang Theory seasons.
+Scraping tables takes a single line of code. The `htmltab()` function uses two inputs: a link to the webpage, and a number marking which table you want to scrape. In this case, I want to get table #2, which is a summary of Season 1 (table #1 is an index of all seasons).
 
 ```{r}
 link <- "https://en.wikipedia.org/wiki/List_of_The_Big_Bang_Theory_episodes"
