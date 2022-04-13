@@ -1,7 +1,7 @@
 ---
 title: "Scraping Wikipedia Tables: A Brief Tutorial"
 description: |
-  A short description of the post.
+  The Big Bang Theory is still culturally relevant, right?
 author:
   - name: Ethan Milne
     url: https://approachingsignificance.com
